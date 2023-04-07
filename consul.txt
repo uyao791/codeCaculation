@@ -1,0 +1,9 @@
+@Aspect
+@Component
+public class KafkaConsumerAspect {
+    @Before("execution(* org.apache.kafka.clients.consumer.KafkaConsumer.<init>(..)) && args(props)")
+    public void beforeKafkaConsumerInit(Properties props) {
+        System.out.println("Before KafkaConsumer init: " + props.getProperty("bootstrap.servers"));
+        props.setProperty("bootstrap.servers", "localhost:9092");
+    }
+}
